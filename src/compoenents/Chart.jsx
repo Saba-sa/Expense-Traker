@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaChartBar } from "react-icons/fa";
 import { FaChartLine } from "react-icons/fa6";
 import { FaChartPie } from "react-icons/fa6";
@@ -9,9 +9,14 @@ import { BarChart, Bar, Rectangle } from "recharts";
 
 const Chart = () => {
   const { defaultData, total } = useExpenseData();
-  const data = defaultData.map((data) => {
-    return { ...data, total: total };
-  });
+  const [data, setdata] = useState(defaultData);
+  useEffect(() => {
+    const temp = defaultData.map((data) => {
+      return { ...data, total: total, diff: total - data.spent };
+    });
+
+    setdata(temp);
+  }, [defaultData, total]);
   const [graphView, setgraphView] = useState({
     bar: true,
     line: false,
@@ -19,7 +24,7 @@ const Chart = () => {
   });
   return (
     <div className="p-4">
-      <div className="cart-icons flex items-center justify-around">
+      <div className="cart-icons flex items-center justify-around mb-2">
         <FaChartBar
           fill={`${graphView.bar && "blue"}`}
           className="cursor-pointer"
@@ -39,27 +44,25 @@ const Chart = () => {
       <div className="carts h-96 flex items-center flex-col">
         {graphView.pie && (
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart width={500} height={400}>
+            <PieChart width={400} height={400}>
               <Pie
-                dataKey="spent"
-                isAnimationActive={false}
                 data={data}
-                cx="25%"
+                dataKey="spent"
+                cx="50%"
                 cy="50%"
-                outerRadius={80}
+                outerRadius={60}
                 fill="#8884d8"
+              />
+              <Pie
+                data={data}
+                dataKey="spent"
+                cx="50%"
+                cy="50%"
+                innerRadius={70}
+                outerRadius={90}
+                fill="#82ca9d"
                 label
               />
-              <Pie
-                dataKey="spent"
-                data={data}
-                cx="64%"
-                cy={200}
-                innerRadius={40}
-                outerRadius={80}
-                fill="#82ca9d"
-              />
-              <Tooltip />
             </PieChart>
           </ResponsiveContainer>
         )}
@@ -89,7 +92,7 @@ const Chart = () => {
               />
               <Line
                 type="monotone"
-                dataKey="spent"
+                dataKey="diff"
                 stroke="#82ca9d"
                 strokeDasharray="3 4 5 2"
               />

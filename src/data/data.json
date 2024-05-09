@@ -29,36 +29,6 @@
       "name": "Gas",
       "spent": 35,
       "date": "2020-05-20"
-    },
-    {
-      "id": 6,
-      "name": "Coffee",
-      "spent": 10,
-      "date": "2020-06-08"
-    },
-    {
-      "id": 7,
-      "name": "Lunch",
-      "spent": 20,
-      "date": "2020-07-15"
-    },
-    {
-      "id": 8,
-      "name": "Books",
-      "spent": 45,
-      "date": "2020-08-22"
-    },
-    {
-      "id": 9,
-      "name": "Gym Membership",
-      "spent": 60,
-      "date": "2020-09-30"
-    },
-    {
-      "id": 10,
-      "name": "Electronics",
-      "spent": 100,
-      "date": "2020-10-12"
     }
   ]
 }
